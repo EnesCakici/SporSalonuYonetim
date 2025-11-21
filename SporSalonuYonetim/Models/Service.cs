@@ -14,7 +14,8 @@ namespace SporSalonuYonetim.Models
         [Display(Name = "Süre")]
         public int DurationMinutes { get; set; }
 
-        [Display(Name = "Ücret" )]
+
+        [Display(Name = "Ücret")]
         public decimal Price { get; set; }
 
 
