@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SporSalonuYonetim.Models; 
 
@@ -10,10 +11,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 /*
  AddDbContext: "Benim veritabaný sýnýfým bu, projeye tanýt" der.
-
 UseNpgsql: "Microsoft SQL deðil, PostgreSQL motorunu kullan" der.
-
 GetConnectionString: "Þifreyi kodun içine yazma, git appsettings.json dosyasýndan oku" der.*/
+
+
+//Identity(uyelik) servisi
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;  //rakam zorunl diil
+    options.Password.RequiredLength = 3; //en az 3 karakter
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;  //sembol zorunlulugunu kaldýrdým. bunlar test icin. yoksa real de true þeklinde çalýþacak
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 
 // Add services to the container.
