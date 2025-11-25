@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SporSalonuYonetim.Models;
 
@@ -26,6 +27,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //Get : Sayfayı göstermek için
+        [Authorize] //Kilit
         [HttpGet]
         public IActionResult Create()
         {
@@ -33,6 +35,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //Post : Formdan gelen veriyi kaydetmek için
+        [Authorize] //Kilit
         [HttpPost]
         [ValidateAntiForgeryToken] //guvemlik onlemi
         public async Task<IActionResult> Create(Service service)
@@ -52,6 +55,7 @@ namespace SporSalonuYonetim.Controllers
         //DUZENLEME ISLEMLERİ
 
         // duzenleme sayfasi islemleri - mevcut verileri kutucaklara doldurur
+        [Authorize] //Kilit
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -66,6 +70,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //duzenlenmis veriyi veritabanina kaydeder
+        [Authorize] //Kilit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Service service)
@@ -95,6 +100,7 @@ namespace SporSalonuYonetim.Controllers
         //SILME ISLEMLERİ
 
         //silmek istedigine emin misin onay sayfasi icin
+        [Authorize] //Kilit
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -108,6 +114,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //silme islemini yapar
+        [Authorize] //Kilit
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SporSalonuYonetim.Models;
 
@@ -19,12 +20,14 @@ namespace SporSalonuYonetim.Controllers
             return View(trainers);
         }
 
+        [Authorize] //Kilit
         [HttpGet]
         public IActionResult Create() 
         {
             return View();
         }
 
+        [Authorize] //Kilit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Trainer trainer)
@@ -41,6 +44,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //Duzenleme islemleri
+        [Authorize] //Kilit
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -52,6 +56,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //duzenlenmis veriyi veritabanina kaydet
+        [Authorize] //Kilit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Trainer trainer)
@@ -78,6 +83,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //Silme islemleri
+        [Authorize] //Kilit
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -89,6 +95,7 @@ namespace SporSalonuYonetim.Controllers
             return View(trainer);
         }
 
+        [Authorize] //Kilit
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

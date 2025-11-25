@@ -6,7 +6,11 @@
 
 <div class="container mt-5">
     <h2>Eğitmen Kadrosu</h2>
-    <a href="/Trainer/Create" class="btn btn-primary mb-3">Yeni Eğitmen Ekle</a>
+    @if(User.Identity.IsAuthenticated)
+    {
+        <a href="/Trainer/Create" class="btn btn-primary mb-3">Yeni Eğitmen Ekle</a>
+    }
+    
 
     <div class="row">
         @foreach (var item in Model)
@@ -22,8 +26,11 @@
                     </div>
 
                     <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
-                        <a href="/Trainer/Edit/@item.TrainerId" class="btn btn-warning btn-sm">Düzenle</a>
-                        <a href="/Trainer/Delete/@item.TrainerId" class="btn btn-danger btn-sm">Sil</a>
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <a href="/Trainer/Edit/@item.TrainerId" class="btn btn-warning btn-sm">Düzenle</a>
+                            <a href="/Trainer/Delete/@item.TrainerId" class="btn btn-danger btn-sm">Sil</a>
+                        }                        
                     </div>
                 </div>
             </div>

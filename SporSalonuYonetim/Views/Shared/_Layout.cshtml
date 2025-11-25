@@ -23,8 +23,40 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Service" asp-action="Index">Hizmetler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Trainer" asp-action="Index">Eğitmenler</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            // Eğer kullanıcı giriş yapmışsa bu kısım görünür
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Merhaba, @User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-danger text-white ms-2" href="/Account/Logout">Çıkış Yap</a>
+                            </li>
+                        }
+                        else
+                        {
+                            // Giriş yapmamışsa bu kısım görünür
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Account/Login">Giriş Yap</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-primary text-white ms-2" href="/Account/Register">Kayıt Ol</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

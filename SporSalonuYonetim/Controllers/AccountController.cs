@@ -58,5 +58,47 @@ namespace SporSalonuYonetim.Controllers
             return View(model);
 
         }
+
+        //Login islemleri
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if ((ModelState.IsValid))
+            {
+                // PasswordSignInAsync: Veritabanına bakar, e-posta ve şifre eşleşiyor mu kontrol eder.
+                // false (lockoutOnFailure): Şifreyi 3 kere yanlış girince hesabı kilitleme (şimdilik kapalı).
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+                if ((result.Succeeded))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                //hata varsa
+                ModelState.AddModelError("", "E-posta veya şifre hatalı.");               
+            }
+            return View(model);            
+        }
+
+
+        //Çıkış yap (logout)
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync(); //cerezi sil
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
     }
 }
