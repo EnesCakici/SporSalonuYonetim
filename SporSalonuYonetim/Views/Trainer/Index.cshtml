@@ -1,0 +1,32 @@
+﻿@model List<SporSalonuYonetim.Models.Trainer>
+
+@{
+    ViewData["Title"] = "Eğitmenler";
+}
+
+<div class="container mt-5">
+    <h2>Eğitmen Kadrosu</h2>
+    <a href="/Trainer/Create" class="btn btn-primary mb-3">Yeni Eğitmen Ekle</a>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "https://via.placeholder.com/300" : item.ImageUrl)"
+                         class="card-img-top" alt="@item.TrainerName" style="height: 250px; object-fit: cover;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.TrainerName</h5>
+                        <p class="card-text text-muted">@item.Specialization</p>
+                    </div>
+
+                    <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                        <a href="/Trainer/Edit/@item.TrainerId" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a href="/Trainer/Delete/@item.TrainerId" class="btn btn-danger btn-sm">Sil</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

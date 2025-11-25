@@ -1,0 +1,35 @@
+﻿@model SporSalonuYonetim.Models.Trainer
+
+@{
+    ViewData["Title"] = "Eğitmen Ekle";
+}
+
+<div class="container mt-5">
+    <h2>Yeni Eğitmen Ekle</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                
+                <div class="form-group mb-3">
+                    <label asp-for="TrainerName" class="control-label">Adı Soyadı</label>
+                    <input asp-for="TrainerName" class="form-control" />
+                    <span asp-validation-for="TrainerName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Specialization" class="control-label">Uzmanlık Alanı</label>
+                    <input asp-for="Specialization" class="form-control" placeholder="Örn: Fitness, Yoga" />
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ImageUrl" class="control-label">Fotoğraf Linki (URL)</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                </div>
+
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

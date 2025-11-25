@@ -1,0 +1,23 @@
+﻿@model SporSalonuYonetim.Models.Trainer
+
+@{
+	ViewData["Title"] = "Eğitmen Sil";
+}
+
+<div class="container mt-5">
+	<h3>Bu eğitmeni silmek istediğinize emin misiniz?</h3>
+
+	<div class="card mt-4" style="width: 18rem;">
+        <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "https://via.placeholder.com/300" : Model.ImageUrl)" class="card-img-top" alt="@Model.TrainerName" style="height: 200px; object-fit: cover;">
+		<div class="card-body">
+			<h5 class="card-title"> @Model.TrainerName</h5>
+			<p class="card-text">Uzmanlık: @Model.Specialization </p>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="TrainerId" />
+                    <input type="submit" value="Evet, Sil" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                </form>
+		</div>
+	</div>
+</div>
+                    
