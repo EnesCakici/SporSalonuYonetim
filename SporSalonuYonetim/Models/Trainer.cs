@@ -15,7 +15,6 @@ namespace SporSalonuYonetim.Models
         [Display(Name = "Uzmanlık Alanı")]
         public string Specialization { get; set; }  //uzmanlık
 
-
         [Display(Name = "Fotograf")]
         public string? ImageUrl { get; set; }  //fotografyolu
 

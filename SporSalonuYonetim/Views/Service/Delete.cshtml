@@ -1,0 +1,50 @@
+﻿@model SporSalonuYonetim.Models.Service
+
+@{
+    ViewData["Title"] = "Sil";
+}
+
+<div class="container mt-5">
+    <h3>Bu hizmeti silmek istediğinize emin misiniz?</h3>
+
+    <div class="card mt-4" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@Model.ServiceName</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Süre: @Model.DurationMinutes dk</h6>
+            <p class="card-text">
+                <strong>Ücret:</strong> @Model.Price ₺
+            </p>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ServiceId" />
+
+                <input type="submit" value="Evet, Sil" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--
+
+<div class="container"> (Çerçeve)
+Anlamı: "İçeriği ekranın en soluna ve en sağına yapıştırma, ortada derli toplu tut."
+
+
+mt-5 (Boşluk Bırak)
+Açılımı: Margin Top 5.   M: Margin (Dış boşluk).   T: Top (Üst).
+Boyut (1 en az, 5 en çok boşluktur).
+Görevi: "Yukarıdaki menüyle (Navbar) aramda 5 birim boşluk bırak, yapışık durmayalım" demektir.
+
+<div class="row"> (Kat Çıkma / Satır)
+Anlamı: "Burada yeni bir yatay satır başlatıyorum."
+
+
+<div class="col-md-6"> (Daire Genişliği)
+En kritik kısım burası. Bu kod şu şifreyi çözer: Col - Md - 6
+Col (Column/Sütun): "Ben bir dikey sütunum."
+Md (Medium/Orta): "Ben Laptop ve üzeri ekranlarda (Medium devices) bu kuralı uygularım."
+6 (Birim): "12 parçalık satırın 6 parçasını (yani yarısını) kaplayacağım."
+
+-->

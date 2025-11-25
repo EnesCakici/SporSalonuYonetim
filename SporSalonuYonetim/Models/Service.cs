@@ -7,13 +7,12 @@ namespace SporSalonuYonetim.Models
         [Key]
         public int ServiceId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hizmet adı zorunludur.")]
         [Display(Name ="Hizmet Adı")]
         public string ServiceName { get; set; }
 
         [Display(Name = "Süre")]
         public int DurationMinutes { get; set; }
-
 
         [Display(Name = "Ücret")]
         public decimal Price { get; set; }

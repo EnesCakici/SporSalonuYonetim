@@ -1,4 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using SporSalonuYonetim.Models; 
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Projeye veritabaný servisini ekler ve PostgreSQL kullanacaðýný belirtip, 
+// baðlantý adresini (þifre vs.) appsettings.json dosyasýndan okur.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+/*
+ AddDbContext: "Benim veritabaný sýnýfým bu, projeye tanýt" der.
+
+UseNpgsql: "Microsoft SQL deðil, PostgreSQL motorunu kullan" der.
+
+GetConnectionString: "Þifreyi kodun içine yazma, git appsettings.json dosyasýndan oku" der.*/
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
