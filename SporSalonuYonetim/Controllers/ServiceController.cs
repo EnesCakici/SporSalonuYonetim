@@ -27,7 +27,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //Get : Sayfayı göstermek için
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public IActionResult Create()
         {
@@ -35,7 +35,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //Post : Formdan gelen veriyi kaydetmek için
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost]
         [ValidateAntiForgeryToken] //guvemlik onlemi
         public async Task<IActionResult> Create(Service service)
@@ -55,7 +55,7 @@ namespace SporSalonuYonetim.Controllers
         //DUZENLEME ISLEMLERİ
 
         // duzenleme sayfasi islemleri - mevcut verileri kutucaklara doldurur
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -70,7 +70,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //duzenlenmis veriyi veritabanina kaydeder
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Service service)
@@ -100,7 +100,7 @@ namespace SporSalonuYonetim.Controllers
         //SILME ISLEMLERİ
 
         //silmek istedigine emin misin onay sayfasi icin
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -114,7 +114,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //silme islemini yapar
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

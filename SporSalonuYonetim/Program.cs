@@ -53,4 +53,19 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        //yazdýgým seeder sinifini cagiriyorum
+        await SporSalonuYonetim.Services.UserSeeder.SeedRolesAndAdminAsync(services);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Seed hatasý " + ex.Message);
+    }
+}
+
 app.Run();

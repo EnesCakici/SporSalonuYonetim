@@ -6,7 +6,7 @@
 
 <div class="container mt-5">
     <h2>Eğitmen Kadrosu</h2>
-    @if(User.Identity.IsAuthenticated)
+    @if(User.IsInRole("Admin"))
     {
         <a href="/Trainer/Create" class="btn btn-primary mb-3">Yeni Eğitmen Ekle</a>
     }
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
-                        @if(User.Identity.IsAuthenticated)
+                        @if(User.IsInRole("Admin"))
                         {
                             <a href="/Trainer/Edit/@item.TrainerId" class="btn btn-warning btn-sm">Düzenle</a>
                             <a href="/Trainer/Delete/@item.TrainerId" class="btn btn-danger btn-sm">Sil</a>

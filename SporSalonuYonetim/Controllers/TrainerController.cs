@@ -20,14 +20,14 @@ namespace SporSalonuYonetim.Controllers
             return View(trainers);
         }
 
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public IActionResult Create() 
         {
             return View();
         }
 
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Trainer trainer)
@@ -44,7 +44,7 @@ namespace SporSalonuYonetim.Controllers
 
 
         //Duzenleme islemleri
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -56,7 +56,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //duzenlenmis veriyi veritabanina kaydet
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Trainer trainer)
@@ -83,7 +83,7 @@ namespace SporSalonuYonetim.Controllers
         }
 
         //Silme islemleri
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -95,7 +95,7 @@ namespace SporSalonuYonetim.Controllers
             return View(trainer);
         }
 
-        [Authorize] //Kilit
+        [Authorize(Roles = "Admin")] //Yalnizca admin rolunde olanlar girebilir
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

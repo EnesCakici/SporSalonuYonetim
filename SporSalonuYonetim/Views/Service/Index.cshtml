@@ -7,7 +7,7 @@
 <div class="container mt-5 ">
 	<h2>Hizmet Listesi</h2>
 
-	@if (User.Identity.IsAuthenticated)
+	@if (User.IsInRole("Admin"))
 	{
 		<a href="/Service/Create" class="btn btn-primary mb-3"> Yeni Hizmet Ekle</a>
 	}
@@ -31,7 +31,7 @@
 					<td>@item.ServiceName</td>
 					<td>@item.DurationMinutes</td>
 					<td>@item.Price ₺</td>
-					@if (User.Identity.IsAuthenticated)
+					@if (User.IsInRole("Admin"))
 					{
 						<td>
 							<a href="/Service/Edit/@item.ServiceId" class="btn btn-warning btn-sm">Düzenle</a>
