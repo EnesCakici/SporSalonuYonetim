@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SporSalonuYonetim.Models; 
+using SporSalonuYonetim.Models;
+
+
+//PostgreSql tarih saat hatasini (UTC) cozmek icin
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 
 var builder = WebApplication.CreateBuilder(args);
 

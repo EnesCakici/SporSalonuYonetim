@@ -1,0 +1,48 @@
+﻿@model SporSalonuYonetim.Models.Appointment
+
+@{
+    ViewData["Title"] = "Randevu Al";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Randevu Oluştur</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+
+                        <div class="mb-3">
+                            <label asp-for="Date" class="form-label">Tarih ve Saat</label>
+                            <input asp-for="Date" class="form-control" type="datetime-local"
+                                   min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Eğitmen Seçiniz</label>
+                            <select asp-for="TrainerId" class="form-select" asp-items="ViewBag.Trainers">
+                                <option value="">-- Bir Eğitmen Seçin --</option>
+                            </select>
+                            <span asp-validation-for="TrainerId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Hizmet Seçiniz</label>
+                            <select asp-for="ServiceId" class="form-select" asp-items="ViewBag.Services">
+                                <option value="">-- Bir Hizmet Seçin --</option>
+                            </select>
+                            <span asp-validation-for="ServiceId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Randevuyu Onayla</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

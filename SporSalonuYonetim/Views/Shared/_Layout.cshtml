@@ -32,6 +32,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Trainer" asp-action="Index">Eğitmenler</a>
                         </li>
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class=" nav-link text-dark" asp-controller="Appointment" asp-action="Index">Randevularım</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class=" nav-link btn btn-outline-primary ms-2" asp-controller="Appointment" asp-action="Create">Randevu Al</a>
+
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

@@ -13,6 +13,8 @@ namespace SporSalonuYonetim.Models
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Service> Services { get; set; }
 
+        public DbSet<Appointment> Appointments { get; set; }
+
         //identyDbcontext, appuser ve roller için dbset olayını hallediyor
 
 

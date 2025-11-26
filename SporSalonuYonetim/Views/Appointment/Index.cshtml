@@ -1,0 +1,63 @@
+﻿@model List<SporSalonuYonetim.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Randevularım</h2>
+        <a asp-action="Create" class="btn btn-primary">+ Yeni Randevu Al</a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            Henüz hiç randevunuz yok. Hadi spora başlayalım!
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Tarih & Saat</th>
+                    <th>Eğitmen</th>
+                    <th>Hizmet</th>
+                    <th>Ücret</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Date.ToString("dd MMMM yyyy HH:mm")</td>
+
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Trainer.ImageUrl))
+                            {
+                                <img src="@item.Trainer.ImageUrl" class="rounded-circle me-2" width="30" height="30" style="object-fit:cover" />
+                            }
+                            @item.Trainer.TrainerName
+                        </td>
+
+                        <td>@item.Service.ServiceName</td>
+
+                        <td>@item.Price.ToString("C2")</td>
+                        <td>
+                            @if (item.Date < DateTime.Now)
+                            {
+                                <span class="badge bg-secondary">Tamamlandı</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Aktif</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
