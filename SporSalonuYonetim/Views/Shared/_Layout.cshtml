@@ -32,6 +32,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Trainer" asp-action="Index">Eğitmenler</a>
                         </li>
+                        @if(User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-danger fw-bold" asp-controller="Home" asp-action="ApiTest">API TEST</a>
+                        </li>
+
+                        }
+                        
                         @if(User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">

@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "API Test Paneli";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h3>⚡ API Test Paneli (jQuery)</h3>
+            <p class="mb-0 small">Veriler sayfa yenilenmeden REST API üzerinden çekilmektedir.</p>
+        </div>
+        <div class="card-body">
+            
+            <div class="mb-3">
+                <button id="btnEgitmenGetir" class="btn btn-primary me-2">Eğitmenleri Getir</button>
+                <button id="btnHizmetGetir" class="btn btn-success">Hizmetleri Getir</button>
+            </div>
+
+            <div id="loadingArea" style="display:none;" class="alert alert-warning">
+                ⏳ Veriler yükleniyor, lütfen bekleyin...
+            </div>
+            
+            <table class="table table-bordered table-hover mt-3" id="tablo" style="display:none;">
+                <thead class="table-light">
+                    <tr id="tabloBaslik">
+                        </tr>
+                </thead>
+                <tbody id="tabloGovde">
+                    </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        // 1. EĞİTMEN GETİR BUTONU
+        $("#btnEgitmenGetir").click(function () {
+            hazirlikYap(); // Tabloyu gizle, yükleniyor göster
+
+            // API'ye İstek At (Ajax)
+            $.ajax({
+                url: "/api/SalonApi/Trainers", // Senin yazdığın API adresi
+                type: "GET",
+                success: function (data) {
+                    islemiBitir(); // Yükleniyor gizle, tabloyu aç
+                    
+                    // Başlıkları Ayarla
+                    $("#tabloBaslik").html("<th>ID</th><th>Foto</th><th>Ad Soyad</th><th>Uzmanlık</th>");
+                    $("#tabloGovde").empty(); // Eski verileri temizle
+
+                    // Gelen veriyi döngüye sok ve tabloya ekle
+                    $.each(data, function (index, item) {
+                        var resim = item.imageUrl ? `<img src="${item.imageUrl}" width="50" class="rounded">` : "Yok";
+                        
+                        var satir = `<tr>
+                                        <td>${item.trainerId}</td>
+                                        <td>${resim}</td>
+                                        <td>${item.trainerName}</td>
+                                        <td><span class="badge bg-info text-dark">${item.specialization}</span></td>
+                                     </tr>`;
+                        $("#tabloGovde").append(satir);
+                    });
+                },
+                error: function () {
+                    alert("Veri çekilirken hata oluştu!");
+                }
+            });
+        });
+
+        // 2. HİZMET GETİR BUTONU
+        $("#btnHizmetGetir").click(function () {
+            hazirlikYap();
+
+            $.ajax({
+                url: "/api/SalonApi/Services",
+                type: "GET",
+                success: function (data) {
+                    islemiBitir();
+
+                    $("#tabloBaslik").html("<th>ID</th><th>Hizmet Adı</th><th>Ücret</th><th>Süre</th>");
+                    $("#tabloGovde").empty();
+
+                    $.each(data, function (index, item) {
+                        var satir = `<tr>
+                                        <td>${item.serviceId}</td>
+                                        <td>${item.serviceName}</td>
+                                        <td>${item.price} ₺</td>
+                                        <td>${item.durationMinutes} dk</td>
+                                     </tr>`;
+                        $("#tabloGovde").append(satir);
+                    });
+                }
+            });
+        });
+
+        // Yardımcı Fonksiyonlar (Kod tekrarını önlemek için)
+        function hazirlikYap() {
+            $("#loadingArea").show();
+            $("#tablo").hide();
+        }
+
+        function islemiBitir() {
+            $("#loadingArea").hide();
+            $("#tablo").show();
+        }
+    });
+</script>
