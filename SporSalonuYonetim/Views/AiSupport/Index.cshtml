@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "AI Spor Asistanı";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">🤖 AI Spor Asistanı</h4>
+                    <small>Gerçek Yapay Zeka (Gemini) ile çalışır.</small>
+                </div>
+                <div class="card-body">
+                    <form id="aiForm">
+                        <div class="mb-3">
+                            <label>Yaşınız</label>
+                            <input type="number" id="age" class="form-control" value="23">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label>Kilo (kg)</label>
+                                <input type="number" id="weight" class="form-control" value="75">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label>Boy (cm)</label>
+                                <input type="number" id="height" class="form-control" value="180">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Hedefiniz</label>
+                            <select id="goal" class="form-select">
+                                <option value="zayiflama">Kilo Vermek & Yağ Yakmak</option>
+                                <option value="kas">Kas Kütlesi Kazanmak</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="btnGenerate" class="btn btn-warning w-100 fw-bold">
+                            ✨ Program Oluştur
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+
+            <div id="loadingArea" style="display:none;" class="text-center mt-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <h4 class="mt-3 text-muted">Yapay Zeka Analiz Ediyor...</h4>
+                <p>Google Gemini sunucularından veri bekleniyor.</p>
+            </div>
+
+            <div id="resultArea" style="display:none;">
+                <div class="card border-success mb-3 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h4 id="resultTitle" class="mb-0">Sonuç</h4>
+                    </div>
+                    <div class="card-body text-dark">
+                        <div id="resultContent"></div>
+                    </div>
+                    <div class="card-footer text-muted small">
+                        * Bu program Google Gemini AI tarafından oluşturulmuştur.
+                    </div>
+                </div>
+            </div>
+
+            <div id="welcomeMessage" class="text-center mt-5 text-muted">
+                <h3>Hazır mısınız?</h3>
+                <p>Formu doldurun, butona basın.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+
+        // Butona tıklandığında çalışacak (Form submit değil, direkt click)
+        $("#btnGenerate").click(function() {
+
+            // Verileri Al
+            var age = $("#age").val();
+            var weight = $("#weight").val();
+            var height = $("#height").val();
+            var goal = $("#goal").val();
+
+            // Boş alan kontrolü
+            if(age == "" || weight == "" || height == "") {
+                alert("Lütfen tüm alanları doldurunuz!");
+                return;
+            }
+
+            // Ekranı Hazırla
+            $("#welcomeMessage").hide();
+            $("#resultArea").hide();
+            $("#loadingArea").show();
+            $("#btnGenerate").prop("disabled", true).text("Analiz yapılıyor...");
+
+            // Veri Paketi
+            var veriler = {
+                age: age,
+                weight: weight,
+                height: height,
+                goal: goal
+            };
+
+            // AJAX İsteği
+            $.ajax({
+                url: "/AiSupport/GeneratePlan",
+                type: "POST",
+                data: veriler,
+                success: function(response) {
+                    $("#loadingArea").hide();
+
+                    if (response.success) {
+                        $("#resultArea").fadeIn();
+                        $("#resultTitle").text(response.title);
+                        $("#resultContent").html(response.message);
+                    } else {
+                        // Eğer sunucudan "False" gelirse (API Key hatası vb.)
+                        alert("HATA: " + response.message);
+                    }
+
+                    $("#btnGenerate").prop("disabled", false).text("✨ Tekrar Oluştur");
+                },
+                error: function(xhr, status, error) {
+                    // Kod patlarsa burası çalışır
+                    console.log(xhr.responseText); // Hatayı konsola yaz
+                    alert("Sunucu hatası oluştu! F12 tuşuna basıp Console sekmesine bakınız.");
+
+                    $("#loadingArea").hide();
+                    $("#btnGenerate").prop("disabled", false).text("Hata Oluştu");
+                }
+            });
+        });
+    });
+</script>
