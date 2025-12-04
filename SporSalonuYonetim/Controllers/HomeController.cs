@@ -1,21 +1,30 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SporSalonuYonetim.Models;
+using SporSalonuYonetim.ViewModels;
 
 namespace SporSalonuYonetim.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //veritabanindan vitrin icin veri cekiyoruz
+            var model = new HomeViewModel
+            {
+                Trainers = await _context.Trainers.Take(3).ToListAsync(),
+                Services = await _context.Services.Take(3).ToListAsync()
+            };
+            //View'i model'a gonderiyoruz
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -28,6 +37,7 @@ namespace SporSalonuYonetim.Controllers
             return View();
         }
 
+        //Varsayikan Hata yonetimi
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

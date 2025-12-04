@@ -10,77 +10,66 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SporSalonuYonetim</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 mb-3">
+            <div class="container">
+
+                <a class="navbar-brand fw-bold fs-3 text-dark d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid text-primary me-2"></i>Vora
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="navbar-collapse collapse" id="navbarContent">
+
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold fs-6 gap-3">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-secondary" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                            <a class="nav-link text-secondary" asp-controller="Service" asp-action="Index">Hizmetler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" asp-controller="Trainer" asp-action="Index">Eğitmenler</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Service" asp-action="Index">Hizmetler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Trainer" asp-action="Index">Eğitmenler</a>
-                        </li>
-                        @if(User.IsInRole("Admin"))
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link text-danger fw-bold" asp-controller="Home" asp-action="ApiTest">API TEST</a>
-                        </li>
-
-                        }
-                        
-                        @if(User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class=" nav-link text-dark" asp-controller="Appointment" asp-action="Index">Randevularım</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" asp-controller="AiSupport" asp-action="Index">🤖 AI ASİSTAN</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class=" nav-link btn btn-outline-primary ms-2" asp-controller="Appointment" asp-action="Create">Randevu Al</a>
-
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            // Eğer kullanıcı giriş yapmışsa bu kısım görünür
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#">Merhaba, @User.Identity.Name</a>
+                                <a class="nav-link text-dark fw-bold" asp-controller="Appointment" asp-action="Index">Randevularım</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-danger text-white ms-2" href="/Account/Logout">Çıkış Yap</a>
+                                <a class="nav-link text-primary fw-bold" asp-controller="AiSupport" asp-action="Index">
+                                    <i class="fa-solid fa-robot"></i> AI Asistan
+                                </a>
                             </li>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-controller="Home" asp-action="ApiTest">API TEST</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-outline-primary rounded-pill px-3" asp-controller="Appointment" asp-action="Create">Randevu Al</a>
+
+                            <span class="fw-bold ms-2 me-2">@User.Identity.Name</span>
+                            <a class="btn btn-danger btn-sm rounded-pill px-3" asp-controller="Account" asp-action="Logout">Çıkış</a>
                         }
                         else
                         {
-                            // Giriş yapmamışsa bu kısım görünür
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Account/Login">Giriş Yap</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-primary text-white ms-2" href="/Account/Register">Kayıt Ol</a>
-                            </li>
+                            <a class="nav-link text-dark fw-bold me-2" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                            <a class="btn btn-primary rounded-pill px-4" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
                         }
-                    </ul>
+                    </div>
+
                 </div>
             </div>
         </nav>

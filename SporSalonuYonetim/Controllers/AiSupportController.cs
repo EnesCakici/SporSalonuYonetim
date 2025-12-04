@@ -11,7 +11,7 @@ namespace SporSalonuYonetim.Controllers
     public class AiSupportController : Controller
     {
         // 🔑 GROQ API ANAHTARINI BURAYA YAPIŞTIR
-        private const string ApiKey = "API Anahtarı gelecek - hata verdiği için sildim";
+        private const string ApiKey = "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";
 
 
         // Groq API Adresi
