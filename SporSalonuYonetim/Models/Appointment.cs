@@ -5,7 +5,7 @@ namespace SporSalonuYonetim.Models
 {
     public class Appointment
     {
-        [Key] //-------------------------------------------------------------------------------------->
+        [Key]  // primery key
         public int AppointmentId { get; set; }
 
         [Required(ErrorMessage = "Tarih ve saat seçimi zorunludur.")]

@@ -10,7 +10,7 @@ namespace SporSalonuYonetim.Controllers
     [Authorize]
     public class AiSupportController : Controller
     {
-        // 🔑 GROQ API ANAHTARINI BURAYA YAPIŞTIR
+        // ROQ API ANAHTARINI BURAYA YAPIŞTIR
         private const string ApiKey = "";
 
 

@@ -34,7 +34,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 
-// Add services to the container.
+// MVC ve Türkçe Hata Mesajý Ayarlarý (Servislerin Konteynýra Eklenmesi)
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>   // burdaki duzeltmeler hata mesajlarýný turkcelestirmek icin
     {
@@ -64,11 +64,11 @@ builder.Services.AddControllersWithViews()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP ÝSTEK HATTININ (PIPELINE) YAPILANDIRILMASI ---
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // Varsayýlan HSTS deðeri 30 gündür. Prodüksiyon (Canlý) senaryolarý için bunu deðiþtirmek isteyebilirsiniz.
     app.UseHsts();
 }
 
@@ -77,13 +77,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthorization(); // Yetkilendirme (Login kontrolü)
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+// BAÞLANGIÇ VERÝLERÝNÝN(SEED DATA) YÜKLENMESÝ
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
