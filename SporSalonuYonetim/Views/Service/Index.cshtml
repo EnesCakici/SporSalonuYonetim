@@ -19,7 +19,8 @@
 				<th>Hizmet Adı</th>
 				<th>Süre (Dk)</th>
 				<th>Ücret</th>
-				@if (User.Identity.IsAuthenticated){
+				@if (User.IsInRole("Admin"))
+				{
 					<th>İşlemler</th>
 				}
 			</tr>

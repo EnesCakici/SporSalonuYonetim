@@ -35,7 +35,32 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>   // burdaki duzeltmeler hata mesajlarýný turkcelestirmek icin
+    {
+        options.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor(
+            (deger, alanAdi) => $"'{deger}' deðeri, {alanAdi} alaný için geçersizdir.");
+
+        // "The value '' is invalid"-> "Girilen deðer geçersizdir."
+        options.ModelBindingMessageProvider.SetValueIsInvalidAccessor(
+            (deger) => $"Seçilen deðer geçersizdir.");
+
+        //"The value is invalid" (Genel)
+        options.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor(
+            (deger) => $"Girdiðiniz '{deger}' deðeri geçersizdir.");
+
+        //Zorunlu alan boþ býrakýldýðýnda
+        options.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor(
+            (alanAdi) => $"Lütfen bu alaný doldurunuz.");
+
+        //Boþ olmamasý gereken alan boþsa
+        options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+            (alanAdi) => $"Bu alan boþ býrakýlamaz.");
+
+        //Bilinmeyen deðer
+        options.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor(
+            (deger) => $"Deðer geçersizdir.");
+    });
 
 var app = builder.Build();
 
